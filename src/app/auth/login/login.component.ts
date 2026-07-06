@@ -10,8 +10,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class LoginComponent {
 
-  protected onSubmit(form: NgForm) {
-    console.log(form);
-    console.log(form.value);
+  protected onSubmitForm(formData: NgForm) {
+    console.log(formData.status);
+    if (formData.invalid) {
+      return;
+    }
+
+    console.log(formData);
+    console.log(formData.value);
+    console.log(formData.form.value);
   }
 }
