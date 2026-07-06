@@ -14,7 +14,7 @@
 
     <button class="button">Login</button>
   </div>
-@if (form.invalid) {
+@if (form.touched && form.invalid) {
   <p class="control-error">
     Invalid values detected. Please check your input.
   </p>
