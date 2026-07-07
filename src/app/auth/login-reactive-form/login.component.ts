@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { mustContainQuestionMarkValidator } from '../../validators';
+import { emailIsUniqueValidator, mustContainQuestionMarkValidator } from '../../validators';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,7 @@ export class LoginComponent {
   protected form = new FormGroup({
     email: new FormControl('', {
       validators: [Validators.required, Validators.email],
+      asyncValidators: [emailIsUniqueValidator],
     }),
     password: new FormControl('', {
       validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20), mustContainQuestionMarkValidator],
