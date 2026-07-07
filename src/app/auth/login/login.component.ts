@@ -17,16 +17,26 @@ type FormType = {
 export class LoginComponent {
   private form = viewChild.required<NgForm>('form');
   private destroyRef = inject(DestroyRef);
+  private static key = 'saved-login-form';
 
   constructor() {
     afterNextRender(() =>{
+      const savedForm = window.localStorage.getItem(LoginComponent.key);
+      if (savedForm) {
+        const data = JSON.parse(savedForm) as { email: string };
+
+        setTimeout(() => {
+          this.form().setValue({ email: data.email, password: '' });
+        });
+      }
+
       const subscription = this.form()
         .valueChanges
         ?.pipe(debounceTime(500))
         .subscribe({
           next: (value: FormType) => {
             console.log(value);
-            window.localStorage.setItem('saved-login-form', JSON.stringify({ email: value.email }));
+            window.localStorage.setItem(LoginComponent.key, JSON.stringify({ email: value.email }));
           },
         });
 
