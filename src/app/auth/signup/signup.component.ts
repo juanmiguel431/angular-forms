@@ -20,4 +20,8 @@ export class SignupComponent {
   protected onSubmitForm() {
     console.log(this.form.value);
   }
+
+  protected onResetForm() {
+    this.form.reset();
+  }
 }
