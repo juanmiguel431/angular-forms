@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { mustContainQuestionMarkValidator } from '../../validators';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +20,7 @@ export class LoginComponent {
       validators: [Validators.required, Validators.email],
     }),
     password: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20)],
+      validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20), mustContainQuestionMarkValidator],
     }),
   });
 
