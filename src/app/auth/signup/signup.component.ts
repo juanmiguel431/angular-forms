@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { equalValues } from '../../validators';
 
 type Role = 'student' | 'teacher' | 'employee' | 'founder' | 'other';
 
@@ -14,14 +15,19 @@ export class SignupComponent {
     email: new FormControl('', {
       validators: [Validators.email, Validators.required],
     }),
-    passwords: new FormGroup({
-      password: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(8)],
-      }),
-      confirmPassword: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(8)],
-      }),
-    }),
+    passwords: new FormGroup(
+      {
+        password: new FormControl('', {
+          validators: [Validators.required, Validators.minLength(8)],
+        }),
+        confirmPassword: new FormControl('', {
+          validators: [Validators.required, Validators.minLength(8)],
+        }),
+      },
+      {
+        validators: [equalValues],
+      },
+    ),
     firstName: new FormControl('', { validators: [Validators.required] }),
     lastName: new FormControl('', { validators: [Validators.required] }),
     address: new FormGroup({
@@ -32,11 +38,7 @@ export class SignupComponent {
     }),
     role: new FormControl<Role>('student', { validators: [Validators.required] }),
     agree: new FormControl(false, { validators: [Validators.required] }),
-    source: new FormArray([
-      new FormControl(false),
-      new FormControl(false),
-      new FormControl(false),
-    ]),
+    source: new FormArray([new FormControl(false), new FormControl(false), new FormControl(false)]),
   });
 
   protected onSubmitForm() {
@@ -46,7 +48,6 @@ export class SignupComponent {
       console.log('INVALID FORM');
       return;
     }
-
   }
 
   protected onResetForm() {
