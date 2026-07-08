@@ -40,13 +40,15 @@ export function emailIsUniqueValidator(control: AbstractControl) {
 //   );
 // }
 
-export function equalValues(control: AbstractControl) {
-  const password = control.get('password')?.value;
-  const confirmPassword = control.get('confirmPassword')?.value;
+export function equalValues(controlName1: string, controlName2: string) {
+  return (control: AbstractControl) => {
+    const value1 = control.get(controlName1)?.value;
+    const value2 = control.get(controlName2)?.value;
 
-  if (password === confirmPassword) {
-    return null;
-  }
+    if (value1 === value2) {
+      return null;
+    }
 
-  return { passwordsNotEqual: true };
+    return { valuesNotEqual: true };
+  };
 }

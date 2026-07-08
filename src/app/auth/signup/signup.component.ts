@@ -25,7 +25,7 @@ export class SignupComponent {
         }),
       },
       {
-        validators: [equalValues],
+        validators: [equalValues('password', 'confirmPassword')],
       },
     ),
     firstName: new FormControl('', { validators: [Validators.required] }),
